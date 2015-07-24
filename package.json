@@ -1,0 +1,46 @@
+{
+  "name": "morpheus",
+  "version": "0.0.1",
+  "description": "A simple little library to transform data structures",
+  "main": "./index.js",
+  "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "test": "mocha --compilers js:babel/register --check-leaks",
+    "watch": "chokidar src/**/*.js test/**/*.js -c 'npm run test' --polling --poll-interval 300 --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nmehta6/morpheus.git"
+  },
+  "keywords": [
+    "automapper",
+    "mapper",
+    "transform",
+    "map"
+  ],
+  "author": {
+    "name": "Nachiket Mehta",
+    "email": "nmehta6@gmail.com",
+    "url": "https://github.com/nmehta6"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nmehta6/morpheus/issues"
+  },
+  "homepage": "https://github.com/nmehta6/morpheus#readme",
+  "dependencies": {
+    "ramda": "^0.17.1"
+  },
+  "devDependencies": {
+    "babel": "^5.8.5",
+    "chai": "^3.0.0",
+    "chokidar-cli": "^1.0.0",
+    "coveralls": "^2.11.2",
+    "hashish": "0.0.4",
+    "mocha": "^2.2.1",
+    "nyc": "^3.0.0"
+  },
+  "engine": {
+    "node": ">=0.8"
+  }
+}
