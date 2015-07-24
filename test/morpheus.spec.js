@@ -1,12 +1,17 @@
+let expect = require('chai').expect
+
 describe('morpheus should', (argument) => {
-	let morpheus = require('../index')
-	let expect = require('chai').expect
+	describe('check schema', () => {
+		let morpheus = require('../index')
+		let schema = {
+			type: 'number'
+		}
+		let instance = 4
 
-	let from   = 1
-	let to     = 2
-	console.log('morpheus', morpheus)
-	let actual = morpheus.map(from, to)
+		let actual = morpheus.check(instance, schema)
+		expect(actual.errors).to.have.length(0)
+	})
 
-	expect(to).to.equal(actual)
+
 
 })

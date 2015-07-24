@@ -1,5 +1,9 @@
+let validate = require('jsonschema').validate
 class Morpheus {
-	map(from, to) {
+	constructor() {
+		this.check = validate
+	}
+	map(fromSchema, to) {
 		return to;
 	}
 }
