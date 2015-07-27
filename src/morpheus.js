@@ -12,9 +12,11 @@ class Morpheus {
 	}
 	map(id, fromObj) {
 		var getSchemaProps = compose(prop('properties'), prop('toSchema'), find(propEq('id', id)))
-		var mapProps = compose(pick(__, fromObj), keys, getSchemaProps)
-		var result = mapProps(this.registrations)
-		
+		var mapProps = compose(pick(__, fromObj), keys)
+
+		var mapObj = compose(mapProps, getSchemaProps)
+		var result = mapObj(this.registrations)
+
 		return result
 	}
 }
