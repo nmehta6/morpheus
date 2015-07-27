@@ -1,25 +1,26 @@
-let validate  = require('jsonschema').validate
-let {compose, keys} = require('ramda')
+var validate  = require('jsonschema').validate
+var {__, compose, keys, map, pick, pickBy, toPairs} = require('ramda')
 
 class Morpheus {
 	constructor() {
-		this.check = validate
+		this.validate = validate
 	}
 	map(fromSchema, toSchema, fromObj) {
+		// var convertProps = (value) =
 
+		var mapProps = compose(pick(__, fromObj), keys)
 
-		let toObj = {}
+		var result = mapProps(toSchema.properties)
+
 		for (var prop in toSchema.properties) {
-			if (fromObj.hasOwnProperty(prop)) {
-				toObj[prop] = fromObj[prop]
+			if (toSchema.properties[prop].type !== fromSchema.properties[prop].type) {
+				if (toSchema.properties[prop].type === 'string') {
+					result[prop] = result[prop].toString()
+				}
 			}
 		}
 
-		return toObj
-
-
-
-
+		return result
 	}
 }
 
