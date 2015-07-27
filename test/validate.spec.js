@@ -1,5 +1,10 @@
 var expect = require('chai').expect
-var morpheus = require('../index')
+var Morpheus = require('../index')
+var morpheus;
+
+beforeEach(function() {
+	morpheus = new Morpheus()
+})
 
 describe('morpheus', (argument) => {
 	it('should validate schema', () => {

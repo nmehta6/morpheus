@@ -1,27 +1,22 @@
 var validate  = require('jsonschema').validate
-var {__, compose, keys, map, pick, pickBy, toPairs} = require('ramda')
+var {__, compose, find, keys, map, pick, pickBy, prop, propEq, toPairs} = require('ramda')
 
 class Morpheus {
 	constructor() {
 		this.validate = validate
+		this.registrations = []
 	}
-	map(fromSchema, toSchema, fromObj) {
-		// var convertProps = (value) =
-
-		var mapProps = compose(pick(__, fromObj), keys)
-
-		var result = mapProps(toSchema.properties)
-
-		for (var prop in toSchema.properties) {
-			if (toSchema.properties[prop].type !== fromSchema.properties[prop].type) {
-				if (toSchema.properties[prop].type === 'string') {
-					result[prop] = result[prop].toString()
-				}
-			}
-		}
-
+	register(registration) {
+		this.registrations.push(registration)
+		return this.registrations
+	}
+	map(id, fromObj) {
+		var getSchemaProps = compose(prop('properties'), prop('toSchema'), find(propEq('id', id)))
+		var mapProps = compose(pick(__, fromObj), keys, getSchemaProps)
+		var result = mapProps(this.registrations)
+		
 		return result
 	}
 }
 
-module.exports = new Morpheus()
+module.exports = Morpheus
