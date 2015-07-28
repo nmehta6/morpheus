@@ -1,5 +1,5 @@
 var validate  = require('jsonschema').validate
-var {compose, defaultTo, find, map, mergeAll, prop, propEq, toPairs} = require('ramda')
+var {compose, defaultTo, find, identity, map, mergeAll, prop, propEq, toPairs} = require('ramda')
 
 class Morpheus {
 	constructor() {
@@ -18,7 +18,7 @@ class Morpheus {
 
 		var applyHandler = ([key, schema]) => {
 			var value = defaultTo(prop(key))(schema.handler)
-			return { [key]: value(fromObj)}
+			return { [key]: value(fromObj) }
 		}
 
 		var mapProps = compose(mergeAll, map(applyHandler))
@@ -27,6 +27,25 @@ class Morpheus {
 
 		//validate against schema
 		this.validate(fromObj, getFromSchema(this.registrations))
+		this.validate(result, getToSchema(this.registrations))
+
+		return result
+	}
+	mapArray(id, fromArray) {
+		var getRegistration = find(propEq('id', id))
+		var getFromSchema = compose(prop('fromSchema'), getRegistration)
+		var getToSchema = compose(prop('toSchema'), getRegistration)
+
+		var applyHandler = (schema) => {
+			var value = defaultTo(identity)(schema.handler)
+			return value(fromArray)
+		}
+
+		var _mapArray = compose(applyHandler, getToSchema)
+		var result = _mapArray(this.registrations)
+
+		//validate against schema
+		this.validate(fromArray, getFromSchema(this.registrations))
 		this.validate(result, getToSchema(this.registrations))
 
 		return result
