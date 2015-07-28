@@ -11,7 +11,7 @@ class Morpheus {
 		return this.registry.register(registration)
 	}
 	map(id, fromObj) {
-		var getRegistration = find(propEq('id', id))
+		var getRegistration = this.registry.find
 		var getFromSchema = compose(prop('fromSchema'), getRegistration)
 		var getToSchema = compose(prop('toSchema'), getRegistration)
 		var getSchemaProps = compose(toPairs, prop('properties'), getToSchema)
@@ -23,11 +23,11 @@ class Morpheus {
 
 		var mapProps = compose(mergeAll, map(applyHandler))
 		var mapObj = compose(mapProps, getSchemaProps)
-		var result = mapObj(this.registry.getAll())
+		var result = mapObj(id)
 
 		//validate against schema
-		this.validate(fromObj, getFromSchema(this.registry.getAll()))
-		this.validate(result, getToSchema(this.registry.getAll()))
+		// this.validate(fromObj, getFromSchema(this.registry.getAll()))
+		// this.validate(result, getToSchema(this.registry.getAll()))
 
 		return result
 	}
