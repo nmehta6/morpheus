@@ -1,5 +1,5 @@
 var validate  = require('jsonschema').validate
-var {__, compose, defaultTo, find, ifElse, keys, map, mergeAll, pick, pickBy, prop, propEq, toPairs} = require('ramda')
+var {compose, defaultTo, find, map, mergeAll, prop, propEq, toPairs} = require('ramda')
 
 class Morpheus {
 	constructor() {

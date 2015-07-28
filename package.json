@@ -4,9 +4,11 @@
   "description": "A simple little library to transform data structures",
   "main": "./index.js",
   "scripts": {
+    "build": "npm run lint; npm run test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "lint": "jshint src/morpheus.js || true",
     "test": "mocha --compilers js:babel/register --check-leaks",
-    "watch": "chokidar src/**/*.js test/**/*.js -c 'npm run test' --polling --poll-interval 300 --verbose"
+    "watch": "chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 300 --verbose"
   },
   "repository": {
     "type": "git",
