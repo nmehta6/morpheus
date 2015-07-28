@@ -6,7 +6,7 @@ beforeEach(function() {
 	morpheus = new Morpheus()
 })
 
-describe('morpheus', (argument) => {
+describe('morpheus', () => {
 	it('should validate schema', () => {
 		var schema = {
 			type: 'number'

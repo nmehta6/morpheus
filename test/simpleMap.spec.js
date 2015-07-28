@@ -17,7 +17,7 @@ var toSchema = {
 	}
 }
 
-describe('morpheus', (argument) => {
+describe('morpheus', () => {
 	it('should map schema', () => {
 		var fromObj = {
 			name: 'Nach',

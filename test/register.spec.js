@@ -1,8 +1,7 @@
 var expect = require('chai').expect
 var Morpheus = require('../index')
 var morpheus;
-var {contains,
-	find,
+var {find,
 	propEq} = require('ramda')
 
 var fromSchema = {
@@ -25,7 +24,7 @@ beforeEach(function() {
 	morpheus = new Morpheus()
 })
 
-describe('morpheus', (argument) => {
+describe('morpheus', () => {
 	it('should register schema', () => {
 		var registration = {id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema}
 		var registrations = morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})

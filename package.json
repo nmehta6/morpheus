@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run lint; npm run test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "jshint src/morpheus.js || true",
+    "lint": "jshint src test || true",
     "test": "mocha --compilers js:babel/register --check-leaks",
     "watch": "chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 300 --verbose"
   },

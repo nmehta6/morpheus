@@ -29,7 +29,7 @@ var toSchema = {
 	}
 }
 
-describe('morpheus', (argument) => {
+describe('morpheus', () => {
 	it('should map with handler', () => {
 		var fromObj = {
 			firstName: 'Nach',
