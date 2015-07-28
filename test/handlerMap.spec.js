@@ -4,31 +4,45 @@ var morpheus = new Morpheus()
 var fromSchema = {
 	type: 'object',
 	properties: {
-		zip: { type: 'number' }
+		firstName: {
+			type: 'string'
+		},
+		lastName: {
+			type: 'string'
+		},
+		zip: {
+			type: 'number'
+		}
 	}
 }
 var toSchema = {
 	type: 'object',
 	properties: {
+		name: {
+			type: 'string',
+			handler: x => `${x.firstName} ${x.lastName}`
+		},
 		zip: {
-			type: 'number',
-			handler: x => x.toString()
+			type: 'string',
+			handler: x => x.zip.toString()
 		}
 	}
 }
 
 describe('morpheus', (argument) => {
-	xit('should map with handler', () => {
+	it('should map with handler', () => {
 		var fromObj = {
-			name: 'Nach',
-			address: 'Palatine, IL',
+			firstName: 'Nach',
+			lastName: 'Mehta',
 			zip: 60074
 		}
 		morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
 		var actual = morpheus.map('person', fromObj)
 		expect(actual)
-			.to.have.property('zip').equal(60074)
+			.to.have.property('zip').equal('60074')
+		expect(actual)
+			.to.have.property('name').equal('Nach Mehta')
 		var isValid = morpheus.validate(actual, toSchema)
 		expect(isValid.errors).to.have.length(0)
 

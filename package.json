@@ -38,6 +38,7 @@
     "chokidar-cli": "^1.0.0",
     "coveralls": "^2.11.2",
     "hashish": "0.0.4",
+    "jshint": "^2.8.0",
     "mocha": "^2.2.1",
     "nyc": "^3.0.0"
   },
