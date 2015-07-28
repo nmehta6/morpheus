@@ -15,22 +15,19 @@ class Morpheus {
 		var getFromSchema = compose(prop('fromSchema'), getRegistration)
 		var getToSchema = compose(prop('toSchema'), getRegistration)
 		var getSchemaProps = compose(toPairs, prop('properties'), getToSchema)
+
 		var applyHandler = ([key, schema]) => {
 			var value = defaultTo(prop(key))(schema.handler)
 			return { [key]: value(fromObj)}
 		}
+
 		var mapProps = compose(mergeAll, map(applyHandler))
-
 		var mapObj = compose(mapProps, getSchemaProps)
-
 		var result = mapObj(this.registrations)
 
-		//validate from and to obj
+		//validate against schema
 		this.validate(fromObj, getFromSchema(this.registrations))
 		this.validate(result, getToSchema(this.registrations))
-		// var fromValidation = this.validate(result, )
-
-
 
 		return result
 	}
