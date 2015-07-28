@@ -18,7 +18,7 @@ var toSchema = {
 }
 
 describe('morpheus', () => {
-	it('should map array', () => {
+	it('should map array element', () => {
 		var fromObj = {
 			tags: [1, 2, 3]
 		}
