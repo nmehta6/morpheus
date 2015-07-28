@@ -1,14 +1,14 @@
 var validate  = require('jsonschema').validate
 var {compose, defaultTo, find, identity, map, mergeAll, prop, propEq, toPairs} = require('ramda')
+var Registry = require('./registry')
 
 class Morpheus {
 	constructor() {
 		this.validate = (instance, schema) => validate(instance, schema, {throwError: true})
-		this.registrations = []
+		this.registry = new Registry()
 	}
 	register(registration) {
-		this.registrations.push(registration)
-		return this.registrations
+		return this.registry.register(registration)
 	}
 	map(id, fromObj) {
 		var getRegistration = find(propEq('id', id))
@@ -23,11 +23,11 @@ class Morpheus {
 
 		var mapProps = compose(mergeAll, map(applyHandler))
 		var mapObj = compose(mapProps, getSchemaProps)
-		var result = mapObj(this.registrations)
+		var result = mapObj(this.registry.getAll())
 
 		//validate against schema
-		this.validate(fromObj, getFromSchema(this.registrations))
-		this.validate(result, getToSchema(this.registrations))
+		this.validate(fromObj, getFromSchema(this.registry.getAll()))
+		this.validate(result, getToSchema(this.registry.getAll()))
 
 		return result
 	}
@@ -42,11 +42,11 @@ class Morpheus {
 		}
 
 		var _mapArray = compose(applyHandler, getToSchema)
-		var result = _mapArray(this.registrations)
+		var result = _mapArray(this.registry.getAll())
 
 		//validate against schema
-		this.validate(fromArray, getFromSchema(this.registrations))
-		this.validate(result, getToSchema(this.registrations))
+		this.validate(fromArray, getFromSchema(this.registry.getAll()))
+		this.validate(result, getToSchema(this.registry.getAll()))
 
 		return result
 	}
