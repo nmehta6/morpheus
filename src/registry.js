@@ -1,5 +1,4 @@
-var validate  = require('jsonschema').validate
-var {__, append, compose, defaultTo, find, identity, map, mergeAll, prop, propEq, toPairs} = require('ramda')
+var {append, find, propEq} = require('ramda')
 
 class Registry {
 	constructor() {

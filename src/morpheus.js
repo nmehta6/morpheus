@@ -1,5 +1,5 @@
 var validate  = require('jsonschema').validate
-var {compose, defaultTo, find, identity, ifElse, map, mergeAll, prop, propEq, toPairs} = require('ramda')
+var {compose, defaultTo, identity, map, mergeAll, prop, toPairs} = require('ramda')
 var Registry = require('./registry')
 
 class Morpheus {
@@ -35,11 +35,12 @@ class Morpheus {
 		return _mapArray(id)
 	}
 	map(id, fromObj) {
+		var result;
 		if (this.getFromSchema(id).type === 'array') {
-			var result = this._mapArray(id, fromObj)
+			result = this._mapArray(id, fromObj)
 		}
 		else {
-			var result = this._mapObj(id, fromObj)
+			result = this._mapObj(id, fromObj)
 		}
 
 		//validate against schema
