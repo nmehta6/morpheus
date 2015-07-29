@@ -20,7 +20,7 @@ describe('morpheus', () => {
 		var fromArray = [1, 2, 3]
 		morpheus.register({id: 'array', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
-		var actual = morpheus.mapArray('array', fromArray)
+		var actual = morpheus.map('array', fromArray)
 		var expected = [2, 4, 6]
 		expect(actual)
 			.to.include.members(expected)
