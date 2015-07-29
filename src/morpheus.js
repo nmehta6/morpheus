@@ -17,8 +17,17 @@ class Morpheus {
 		var getSchemaProps = compose(toPairs, prop('properties'), this.getToSchema)
 
 		var applyHandler = ([key, schema]) => {
-			var value = defaultTo(prop(key))(schema.handler)
-			return { [key]: value(fromObj) }
+			if (!!schema.handler) {
+				return { [key]: schema.handler(fromObj) }
+			}
+			else if (!!schema.default) {
+				return { [key]: schema.default }
+			}
+			else {
+				return { [key]: fromObj[key] }
+			}
+			// var value = defaultTo(prop(key))(schema.handler)
+			// return { [key]: value(fromObj) }
 		}
 
 		var mapProps = compose(mergeAll, map(applyHandler))
