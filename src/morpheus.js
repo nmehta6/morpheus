@@ -13,8 +13,8 @@ class Morpheus {
 	register(registration) {
 		return this.registry.register(registration)
 	}
-	_mapObj(id, fromObj) {
-		var getSchemaProps = compose(toPairs, prop('properties'), this.getToSchema)
+	_nestedMapObj(schema, fromObj) {
+		var getSchemaProps = compose(toPairs, prop('properties'))
 
 		var applyHandler = ([key, schema]) => {
 			if (!!schema.handler) {
@@ -23,14 +23,23 @@ class Morpheus {
 			else if (!!schema.default) {
 				return { [key]: schema.default }
 			}
+			else if (schema.type === 'object') {
+				return { [key]: this._nestedMapObj(schema, fromObj[key]) }
+			}
 			else {
 				return { [key]: fromObj[key] }
 			}
 		}
 
-		var mapProps = compose(mergeAll, map(applyHandler))
-		var mapObj = compose(mapProps, getSchemaProps)
-		return mapObj(id)
+		var schemaProps = getSchemaProps(schema)
+		var mapObj = compose(mergeAll, map(applyHandler))
+
+		return mapObj(schemaProps)
+
+	}
+	_mapObj(id, fromObj) {
+		var toSchema = this.getToSchema(id)
+		return this._nestedMapObj(toSchema, fromObj)
 	}
 	_mapArray(id, fromArray) {
 		var applyHandler = (schema) => {
