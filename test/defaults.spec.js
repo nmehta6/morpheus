@@ -16,7 +16,7 @@ var toSchema = {
 		name: { type: 'string' },
 		zip: {
 			type: 'string',
-			'default': '60074'
+			'default': '60075'
 		}
 	}
 }
@@ -32,6 +32,6 @@ describe('morpheus', () => {
 
 		var actual = morpheus.map('person', fromObj)
 		expect(actual)
-			.to.have.property('zip').equal('60074')
+			.to.have.property('zip').equal('60075')
 	})
 })

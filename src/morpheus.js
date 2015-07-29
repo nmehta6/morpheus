@@ -1,5 +1,5 @@
 var validate  = require('jsonschema').validate
-var {compose, defaultTo, identity, map, mergeAll, prop, toPairs} = require('ramda')
+var {always, cond, compose, defaultTo, identity, map, mergeAll, prop, T, toPairs} = require('ramda')
 var Registry = require('./registry')
 
 class Morpheus {
@@ -26,8 +26,6 @@ class Morpheus {
 			else {
 				return { [key]: fromObj[key] }
 			}
-			// var value = defaultTo(prop(key))(schema.handler)
-			// return { [key]: value(fromObj) }
 		}
 
 		var mapProps = compose(mergeAll, map(applyHandler))
