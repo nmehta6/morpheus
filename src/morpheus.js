@@ -41,14 +41,20 @@ class Morpheus {
 		var toSchema = this.getToSchema(id)
 		return this._nestedMapObj(toSchema, fromObj)
 	}
-	_mapArray(id, fromArray) {
-		var applyHandler = (schema) => {
-			var value = defaultTo(identity)(schema.handler)
-			return value(fromArray)
+	_nestedMapArray(schema, fromArray) {
+		if (!!schema.handler) {
+			return schema.handler(fromArray)
 		}
-
-		var _mapArray = compose(applyHandler, this.getToSchema)
-		return _mapArray(id)
+		else if (schema.items.type === 'object') {
+			return fromArray.map(o => this._nestedMapObj(schema.items, o))
+		}
+		else {
+			return fromArray
+		}
+	}
+	_mapArray(id, fromArray) {
+		var toSchema = this.getToSchema(id)
+		return this._nestedMapArray(toSchema, fromArray)
 	}
 	map(id, fromObj) {
 		var result;
