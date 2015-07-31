@@ -14,8 +14,6 @@ class Morpheus {
 		return this.registry.register(registration)
 	}
 	_nestedMapObj(schema, fromObj) {
-		var getSchemaProps = compose(toPairs, prop('properties'))
-
 		var applyHandler = ([key, schema]) => {
 			if (!!schema.handler) {
 				return { [key]: schema.handler(fromObj) }
@@ -31,11 +29,10 @@ class Morpheus {
 			}
 		}
 
-		var schemaProps = getSchemaProps(schema)
 		var mapObj = compose(mergeAll, map(applyHandler))
+		var schemaProps = toPairs(schema.properties)
 
 		return mapObj(schemaProps)
-
 	}
 	_mapObj(id, fromObj) {
 		var toSchema = this.getToSchema(id)
