@@ -11,11 +11,11 @@ var fromSchema = {
 }
 var toSchema = {
 	type: 'string',
-	handler: (x) => `Hi, I am ${x.name}. I live at ${x.zip}`
+	morph: (x) => `Hi, I am ${x.name}. I live at ${x.zip}`
 }
 
 describe('morpheus', () => {
-	it('should support top level handler', () => {
+	it('should support top level morph', () => {
 		var fromObj = {
 			name: 'Nach',
 			address: 'Palatine, IL',
@@ -24,7 +24,7 @@ describe('morpheus', () => {
 		morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
 		var actual = morpheus.map('person', fromObj)
-		
+
 		expect(actual)
 			.to.have.equal('Hi, I am Nach. I live at 60074')
 		var isValid = morpheus.validate(actual, toSchema)

@@ -12,7 +12,7 @@ var toSchema = {
 	properties: {
 		tags: {
 			type: 'array',
-			handler: x => x.tags.filter(y => y > 1)
+			morph: x => x.tags.filter(y => y > 1)
 		}
 	}
 }

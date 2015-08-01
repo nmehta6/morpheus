@@ -12,7 +12,7 @@ var toSchema = {
 	items: {
 		type: 'number'
 	},
-	handler: x => x.map(y => y * 2)
+	morph: x => x.map(y => y * 2)
 }
 
 describe('morpheus', () => {

@@ -14,9 +14,9 @@ class Morpheus {
 		return this.registry.register(registration)
 	}
 	_nestedMapObj(schema, fromObj) {
-		var transform = ([key, s]) => {
-			if (!!s.handler) {
-				return { [key]: s.handler(fromObj) }
+		var morph = ([key, s]) => {
+			if (!!s.morph) {
+				return { [key]: s.morph(fromObj) }
 			}
 			else if (!!s.default) {
 				return { [key]: s.default }
@@ -31,7 +31,7 @@ class Morpheus {
 
 		var mapObj = pipe(
 			toPairs,
-			map(transform),
+			map(morph),
 			mergeAll
 		)
 
@@ -40,16 +40,16 @@ class Morpheus {
 	_mapObj(id, fromObj) {
 		var toSchema = this.getToSchema(id)
 
-		if (!!toSchema.handler) {
-			return toSchema.handler(fromObj)
+		if (!!toSchema.morph) {
+			return toSchema.morph(fromObj)
 		}
 		else {
 			return this._nestedMapObj(toSchema, fromObj)
 		}
 	}
 	_nestedMapArray(schema, fromArray) {
-		if (!!schema.handler) {
-			return schema.handler(fromArray)
+		if (!!schema.morph) {
+			return schema.morph(fromArray)
 		}
 		else if (schema.items.type === 'object') {
 			return fromArray.map(o => this._nestedMapObj(schema.items, o))
@@ -61,8 +61,8 @@ class Morpheus {
 	_mapArray(id, fromArray) {
 		var toSchema = this.getToSchema(id)
 
-		if (!!toSchema.handler) {
-			return toSchema.handler(fromArray)
+		if (!!toSchema.morph) {
+			return toSchema.morph(fromArray)
 		}
 		else {
 			return this._nestedMapArray(toSchema, fromArray)

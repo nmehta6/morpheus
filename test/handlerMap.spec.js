@@ -20,17 +20,17 @@ var toSchema = {
 	properties: {
 		name: {
 			type: 'string',
-			handler: x => `${x.firstName} ${x.lastName}`
+			morph: x => `${x.firstName} ${x.lastName}`
 		},
 		zip: {
 			type: 'string',
-			handler: x => x.zip.toString()
+			morph: x => x.zip.toString()
 		}
 	}
 }
 
 describe('morpheus', () => {
-	it('should map with handler', () => {
+	it('should map with morph', () => {
 		var fromObj = {
 			firstName: 'Nach',
 			lastName: 'Mehta',
