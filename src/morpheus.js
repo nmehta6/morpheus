@@ -1,5 +1,5 @@
 var validate  = require('jsonschema').validate
-var {always, cond, compose, defaultTo, identity, map, mergeAll, prop, T, toPairs} = require('ramda')
+var {always, cond, compose, defaultTo, identity, map, mergeAll, pipe, prop, T, toPairs} = require('ramda')
 var Registry = require('./registry')
 
 class Morpheus {
@@ -14,29 +14,38 @@ class Morpheus {
 		return this.registry.register(registration)
 	}
 	_nestedMapObj(schema, fromObj) {
-		var applyHandler = ([key, schema]) => {
-			if (!!schema.handler) {
-				return { [key]: schema.handler(fromObj) }
+		var transform = ([key, s]) => {
+			if (!!s.handler) {
+				return { [key]: s.handler(fromObj) }
 			}
-			else if (!!schema.default) {
-				return { [key]: schema.default }
+			else if (!!s.default) {
+				return { [key]: s.default }
 			}
-			else if (schema.type === 'object') {
-				return { [key]: this._nestedMapObj(schema, fromObj[key]) }
+			else if (s.type === 'object') {
+				return { [key]: this._nestedMapObj(s, fromObj[key]) }
 			}
 			else {
 				return { [key]: fromObj[key] }
 			}
 		}
 
-		var mapObj = compose(mergeAll, map(applyHandler))
-		var schemaProps = toPairs(schema.properties)
+		var mapObj = pipe(
+			toPairs,
+			map(transform),
+			mergeAll
+		)
 
-		return mapObj(schemaProps)
+		return mapObj(schema.properties)
 	}
 	_mapObj(id, fromObj) {
 		var toSchema = this.getToSchema(id)
-		return this._nestedMapObj(toSchema, fromObj)
+
+		if (!!toSchema.handler) {
+			return toSchema.handler(fromObj)
+		}
+		else {
+			return this._nestedMapObj(toSchema, fromObj)
+		}
 	}
 	_nestedMapArray(schema, fromArray) {
 		if (!!schema.handler) {
@@ -51,7 +60,13 @@ class Morpheus {
 	}
 	_mapArray(id, fromArray) {
 		var toSchema = this.getToSchema(id)
-		return this._nestedMapArray(toSchema, fromArray)
+
+		if (!!toSchema.handler) {
+			return toSchema.handler(fromArray)
+		}
+		else {
+			return this._nestedMapArray(toSchema, fromArray)
+		}
 	}
 	map(id, fromObj) {
 		var result;
