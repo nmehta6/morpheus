@@ -1,31 +1,37 @@
-var validate  = require('jsonschema').validate
-var {always, cond, compose, defaultTo, identity, map, mergeAll, pipe, prop, T, toPairs} = require('ramda')
+var R = require('ramda')
+var {__, compose, createMapEntry, curry, has, map, mergeAll, path, pipe, prop, replace, split, toLower, toPairs} = require('ramda')
+var validate  = curry(require('jsonschema').validate)
 var Registry = require('./registry')
+var notNil = compose(R.not, R.isNil)
 
 class Morpheus {
 	constructor() {
-		this.validate = (instance, schema) => validate(instance, schema, {throwError: true})
 		this.registry = new Registry()
+		this.validate = validate(__, __, {throwError: true})
 		this.getRegistration = this.registry.find
 		this.getFromSchema = compose(prop('fromSchema'), this.getRegistration)
 		this.getToSchema = compose(prop('toSchema'), this.getRegistration)
-	}
-	register(registration) {
-		return this.registry.register(registration)
+		this.register = this.registry.register
 	}
 	_nestedMapObj(schema, fromObj) {
 		var morph = ([key, s]) => {
-			if (!!s.morph) {
-				return { [key]: s.morph(fromObj) }
+			let obj = createMapEntry(key)
+			let camelCaseSplit = compose(split(' '), toLower, replace(/([A-Z])/g, ' $1'))
+
+			if (notNil(s.morph)) {
+				return obj(s.morph(fromObj))
 			}
-			else if (!!s.default) {
-				return { [key]: s.default }
+			else if (notNil(s.default)) {
+				return obj(s.default)
 			}
 			else if (s.type === 'object') {
-				return { [key]: this._nestedMapObj(s, fromObj[key]) }
+				return obj(this._nestedMapObj(s, fromObj[key]))
 			}
-			else {
-				return { [key]: fromObj[key] }
+			else if (has(key, fromObj)) {
+				return obj(fromObj[key])
+			}
+			else if (notNil(path(camelCaseSplit(key), fromObj))) {
+				return obj(path(camelCaseSplit(key), fromObj))
 			}
 		}
 
@@ -40,7 +46,7 @@ class Morpheus {
 	_mapObj(id, fromObj) {
 		var toSchema = this.getToSchema(id)
 
-		if (!!toSchema.morph) {
+		if (toSchema.morph) {
 			return toSchema.morph(fromObj)
 		}
 		else {

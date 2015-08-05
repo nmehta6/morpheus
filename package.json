@@ -8,7 +8,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "jshint src test || true",
     "test": "mocha --compilers js:babel/register --check-leaks",
-    "watch": "npm run build; chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 300 --verbose"
+    "watch": "npm run build; chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 100 --verbose"
   },
   "repository": {
     "type": "git",
