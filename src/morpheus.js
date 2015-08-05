@@ -1,8 +1,8 @@
 var R = require('ramda')
-var {__, compose, createMapEntry, curry, has, map, mergeAll, path, pipe, prop, replace, split, toLower, toPairs} = require('ramda')
+var {__, compose, createMapEntry, curry, has, isNil, map, mergeAll, not, path, pipe, prop, replace, split, toLower, toPairs} = require('ramda')
 var validate  = curry(require('jsonschema').validate)
 var Registry = require('./registry')
-var notNil = compose(R.not, R.isNil)
+var notNil = compose(not, isNil)
 
 class Morpheus {
 	constructor() {
@@ -21,11 +21,11 @@ class Morpheus {
 			if (notNil(s.morph)) {
 				return obj(s.morph(fromObj))
 			}
-			else if (notNil(s.default)) {
-				return obj(s.default)
-			}
 			else if (s.type === 'object') {
 				return obj(this._nestedMapObj(s, fromObj[key]))
+			}
+			else if (notNil(s.default) && isNil(prop(key, fromObj))) {
+				return obj(s.default)
 			}
 			else if (has(key, fromObj)) {
 				return obj(fromObj[key])
