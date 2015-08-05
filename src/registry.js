@@ -6,9 +6,6 @@ class Registry {
 		this.find = (id) => find(propEq('id', id), this.registrations)
 		this.register = (registration) => this.registrations = append(registration, this.registrations)
 	}
-	getAll() {
-		return this.registrations
-	}
 }
 
 module.exports = Registry
