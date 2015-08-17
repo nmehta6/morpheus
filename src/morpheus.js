@@ -1,4 +1,3 @@
-var R = require('ramda')
 var {__, compose, createMapEntry, curry, has, isNil, map, mergeAll, not, path, pipe, prop, replace, split, toLower, toPairs} = require('ramda')
 var validate  = curry(require('jsonschema').validate)
 var Registry = require('./registry')
@@ -41,7 +40,12 @@ class Morpheus {
 			mergeAll
 		)
 
-		return mapObj(schema.properties)
+		if (schema.morph) {
+			return schema.morph(fromObj)
+		}
+		else {
+			return mapObj(schema.properties)
+		}
 	}
 	_mapObj(id, fromObj) {
 		var toSchema = this.getToSchema(id)
@@ -53,31 +57,23 @@ class Morpheus {
 			return this._nestedMapObj(toSchema, fromObj)
 		}
 	}
-	_nestedMapArray(schema, fromArray) {
-		if (!!schema.morph) {
-			return schema.morph(fromArray)
-		}
-		else if (schema.items.type === 'object') {
-			return fromArray.map(o => this._nestedMapObj(schema.items, o))
-		}
-		else {
-			return fromArray
-		}
-	}
-	_mapArray(id, fromArray) {
+	mapArray(id, fromArray) {
 		var toSchema = this.getToSchema(id)
 
 		if (!!toSchema.morph) {
 			return toSchema.morph(fromArray)
 		}
+		else if (toSchema.items.type === 'object') {
+			return fromArray.map(o => this._nestedMapObj(toSchema.items, o))
+		}
 		else {
-			return this._nestedMapArray(toSchema, fromArray)
+			return fromArray
 		}
 	}
 	map(id, fromObj) {
 		var result;
 		if (this.getFromSchema(id).type === 'array') {
-			result = this._mapArray(id, fromObj)
+			result = this.mapArray(id, fromObj)
 		}
 		else {
 			result = this._mapObj(id, fromObj)
