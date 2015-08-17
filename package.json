@@ -4,6 +4,7 @@
   "description": "A simple little library to transform data structures",
   "main": "./index.js",
   "scripts": {
+    "babelify": "browserify index.js --transform babelify --outfile dist/morpheus.js",
     "build": "npm run lint; npm run test",
     "lint": "jshint src test || true",
     "test": "mocha --compilers js:babel/register --check-leaks",
