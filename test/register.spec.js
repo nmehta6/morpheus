@@ -1,10 +1,10 @@
-var expect = require('chai').expect
-var Morpheus = require('../index')
-var morpheus;
-var {find,
+let expect = require('chai').expect
+let Morpheus = require('../index')
+let morpheus;
+let {find,
 	propEq} = require('ramda')
 
-var fromSchema = {
+let fromSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
@@ -12,7 +12,7 @@ var fromSchema = {
 		zip: { type: 'string' }
 	}
 }
-var toSchema = {
+let toSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
@@ -26,8 +26,8 @@ beforeEach(function() {
 
 describe('morpheus', () => {
 	it('should register schema', () => {
-		var registration = {id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema}
-		var registrations = morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
+		let registration = {id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema}
+		let registrations = morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
 		expect(find(propEq('id', registration.id))(registrations))
 			.to.deep.equals(registration)

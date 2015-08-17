@@ -1,8 +1,8 @@
-var expect = require('chai').expect
-var Morpheus = require('../index')
-var morpheus = new Morpheus()
+let expect = require('chai').expect
+let Morpheus = require('../index')
+let morpheus = new Morpheus()
 
-var fromSchema = {
+let fromSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
@@ -23,7 +23,7 @@ var fromSchema = {
 	}
 }
 
-var toSchema = {
+let toSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
@@ -39,7 +39,7 @@ var toSchema = {
 
 describe('morpheus', () => {
 	it('should map nested objects', () => {
-		var fromObj = {
+		let fromObj = {
 			name: 'Barack Obama',
 			address: {
 				lines: [ '1600 Pennsylvania Avenue Northwest' ],
@@ -52,11 +52,11 @@ describe('morpheus', () => {
 
 		morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
-		var actual = morpheus.map('person', fromObj)
+		let actual = morpheus.map('person', fromObj)
 
 		// console.log(actual, actual)
 
-		var expected = {
+		let expected = {
 			name: 'Barack Obama',
 			address: {
 				city: 'Washington'

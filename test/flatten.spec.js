@@ -1,7 +1,7 @@
-var expect = require('chai').expect
-var Morpheus = require('../index')
-var morpheus = new Morpheus()
-var fromSchema = {
+let expect = require('chai').expect
+let Morpheus = require('../index')
+let morpheus = new Morpheus()
+let fromSchema = {
 	type: 'object',
 	properties: {
 		address: {
@@ -14,7 +14,7 @@ var fromSchema = {
 		}
 	}
 }
-var toSchema = {
+let toSchema = {
 	type: 'object',
 	properties: {
 		addressZip: {
@@ -25,14 +25,14 @@ var toSchema = {
 
 describe('morpheus', () => {
 	it('should get flattended value', () => {
-		var fromObj = {
+		let fromObj = {
 			address: {
 				zip: '60074'
 			}
 		}
 		morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
-		var actual = morpheus.map('person', fromObj)
+		let actual = morpheus.map('person', fromObj)
 		expect(actual)
 			.to.have.property('addressZip').equal('60074')
 	})

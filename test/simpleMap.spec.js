@@ -1,7 +1,7 @@
-var expect = require('chai').expect
-var Morpheus = require('../index')
-var morpheus = new Morpheus()
-var fromSchema = {
+let expect = require('chai').expect
+let Morpheus = require('../index')
+let morpheus = new Morpheus()
+let fromSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
@@ -9,7 +9,7 @@ var fromSchema = {
 		zip: { type: 'string' }
 	}
 }
-var toSchema = {
+let toSchema = {
 	type: 'object',
 	properties: {
 		name: { type: 'string' },
@@ -19,17 +19,17 @@ var toSchema = {
 
 describe('morpheus', () => {
 	it('should map schema', () => {
-		var fromObj = {
+		let fromObj = {
 			name: 'Nach',
 			address: 'Palatine, IL',
 			zip: '60074'
 		}
 		morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
-		var actual = morpheus.map('person', fromObj)
+		let actual = morpheus.map('person', fromObj)
 		expect(actual)
 			.to.have.property('name').equal('Nach')
-		var isValid = morpheus.validate(actual, toSchema)
+		let isValid = morpheus.validate(actual, toSchema)
 		expect(isValid.errors).to.have.length(0)
 
 		expect()

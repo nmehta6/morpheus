@@ -1,7 +1,7 @@
-var {expect} = require('chai')
-var Morpheus = require('../index')
-var morpheus = new Morpheus()
-var fromSchema = {
+let {expect} = require('chai')
+let Morpheus = require('../index')
+let morpheus = new Morpheus()
+let fromSchema = {
 	type: 'array',
 	items: {
 		type: 'object',
@@ -19,7 +19,7 @@ var fromSchema = {
 	}
 }
 
-var toSchema = {
+let toSchema = {
 	type: 'array',
 	items: {
 		type: 'object',
@@ -37,7 +37,7 @@ var toSchema = {
 
 describe('morpheus', () => {
 	it('should map objects in array', () => {
-		var fromArray = [
+		let fromArray = [
 			{
 				name: 'Barack Obama',
 				address: {
@@ -56,7 +56,7 @@ describe('morpheus', () => {
 			}
 		]
 
-		var expected = [
+		let expected = [
 			{
 				name: 'Barack Obama',
 				address: {
@@ -72,7 +72,7 @@ describe('morpheus', () => {
 		]
 		morpheus.register({id: 'array', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
-		var actual = morpheus.map('array', fromArray)
+		let actual = morpheus.map('array', fromArray)
 		expect(actual)
 			.to.deep.equal(expected)
 	})

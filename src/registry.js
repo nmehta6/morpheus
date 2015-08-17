@@ -1,4 +1,4 @@
-var {append, find, propEq} = require('ramda')
+let {append, find, propEq} = require('ramda')
 
 class Registry {
 	constructor() {

@@ -1,13 +1,13 @@
-var {expect} = require('chai')
-var Morpheus = require('../index')
-var morpheus = new Morpheus()
-var fromSchema = {
+let {expect} = require('chai')
+let Morpheus = require('../index')
+let morpheus = new Morpheus()
+let fromSchema = {
 	type: 'array',
 	items: {
 		type: 'number'
 	}
 }
-var toSchema = {
+let toSchema = {
 	type: 'array',
 	items: {
 		type: 'number'
@@ -17,11 +17,11 @@ var toSchema = {
 
 describe('morpheus', () => {
 	it('should map array', () => {
-		var fromArray = [1, 2, 3]
+		let fromArray = [1, 2, 3]
 		morpheus.register({id: 'array', 'fromSchema': fromSchema, 'toSchema': toSchema})
 
-		var actual = morpheus.map('array', fromArray)
-		var expected = [2, 4, 6]
+		let actual = morpheus.map('array', fromArray)
+		let expected = [2, 4, 6]
 		expect(actual)
 			.to.include.members(expected)
 	})

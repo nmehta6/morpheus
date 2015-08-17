@@ -1,6 +1,6 @@
-var expect = require('chai').expect
-var Morpheus = require('../index')
-var morpheus;
+let expect = require('chai').expect
+let Morpheus = require('../index')
+let morpheus;
 
 beforeEach(function() {
 	morpheus = new Morpheus()
@@ -8,12 +8,12 @@ beforeEach(function() {
 
 describe('morpheus', () => {
 	it('should validate schema', () => {
-		var schema = {
+		let schema = {
 			type: 'number'
 		}
-		var instance = 4
+		let instance = 4
 
-		var actual = morpheus.validate(instance, schema)
+		let actual = morpheus.validate(instance, schema)
 		expect(actual.errors).to.have.length(0)
 	})
 })
