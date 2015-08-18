@@ -50,6 +50,7 @@
     "chai": "^3.0.0",
     "chokidar-cli": "^1.0.0",
     "jshint": "^2.8.0",
+    "karma-chrome-launcher": "^0.2.0",
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.2.5",

@@ -19,7 +19,7 @@ module.exports = function(config) {
       'node_modules/chai/chai.js',
       'bower_components/ramda/dist/ramda.js',
       'dist/*.js',
-      'test/browser/test.js'
+      'test/browser/**/*.js'
     ],
 
 
@@ -59,7 +59,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
