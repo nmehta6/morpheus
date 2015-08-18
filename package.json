@@ -16,7 +16,7 @@
     "babelify": "browserify src/morpheus.js --standalone Morpheus --outfile dist/morpheus.js",
     "build": "npm run lint; npm run test",
     "lint": "jshint src test || true",
-    "test": "mocha --compilers js:babel/register --check-leaks",
+    "test": "mocha --compilers js:babel/register --check-leaks; karma start",
     "watch": "npm run build; chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 100 --verbose"
   },
   "repository": {
@@ -50,7 +50,10 @@
     "chai": "^3.0.0",
     "chokidar-cli": "^1.0.0",
     "jshint": "^2.8.0",
-    "mocha": "^2.2.5"
+    "karma-mocha": "^0.2.0",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.2.5",
+    "phantomjs": "^1.9.18"
   },
   "engine": {
     "node": ">=0.8"
