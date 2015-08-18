@@ -49,7 +49,8 @@
     "browserify-shim": "^3.8.10",
     "chai": "^3.0.0",
     "chokidar-cli": "^1.0.0",
-    "jshint": "^2.8.0"
+    "jshint": "^2.8.0",
+    "mocha": "^2.2.5"
   },
   "engine": {
     "node": ">=0.8"
