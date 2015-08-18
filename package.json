@@ -55,7 +55,8 @@
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.2.5",
-    "phantomjs": "^1.9.18"
+    "phantomjs": "^1.9.18",
+    "phantomjs-polyfill": "0.0.1"
   },
   "engine": {
     "node": ">=0.8"
