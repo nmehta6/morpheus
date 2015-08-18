@@ -2,9 +2,15 @@
   "name": "morpheus",
   "version": "0.0.1",
   "description": "A simple little library to transform data structures",
-  "main": "./index.js",
+  "main": "index.js",
+  "browserify": {
+    "transform": ["babelify", "browserify-shim"]
+  },
+  "browserify-shim": {
+    "ramda": "global:R"
+  },
   "scripts": {
-    "babelify": "browserify index.js --standalone Morpheus --transform babelify --outfile dist/morpheus.js",
+    "babelify": "browserify src/morpheus.js --standalone Morpheus --outfile dist/morpheus.js",
     "build": "npm run lint; npm run test",
     "lint": "jshint src test || true",
     "test": "mocha --compilers js:babel/register --check-leaks",
@@ -36,6 +42,7 @@
   },
   "devDependencies": {
     "babel": "^5.8.5",
+    "browserify-shim": "^3.8.10",
     "chai": "^3.0.0",
     "chokidar-cli": "^1.0.0",
     "jshint": "^2.8.0",

@@ -1,0 +1,24 @@
+{
+  "name": "morpheus",
+  "main": "dist/morpheus.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/nmehta6/morpheus",
+  "authors": [
+    "nachiket mehta <nmehta@mediafly.com>"
+  ],
+  "description": "A simple little library to transform data structures",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ramda": "~0.17.1"
+  }
+}
