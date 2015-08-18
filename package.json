@@ -17,6 +17,7 @@
     "build": "npm run lint; npm run test",
     "lint": "jshint src test || true",
     "test": "mocha --compilers js:babel/register --check-leaks; karma start",
+    "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel/register -R spec",
     "watch": "npm run build; chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 100 --verbose"
   },
   "repository": {
@@ -49,12 +50,15 @@
     "browserify-shim": "^3.8.10",
     "chai": "^3.0.0",
     "chokidar-cli": "^1.0.0",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.3.18",
     "jshint": "^2.8.0",
     "karma-browserify": "^4.3.0",
     "karma-chrome-launcher": "^0.2.0",
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "0.0.2",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1"
   },
