@@ -1,5 +1,5 @@
 {
-  "name": "morpheus",
+  "name": "@nmehta6/morpheus",
   "version": "0.0.1",
   "description": "A simple little library to transform data structures",
   "main": "index.js",
