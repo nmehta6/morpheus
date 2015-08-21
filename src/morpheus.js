@@ -1,4 +1,6 @@
-let {__, compose, createMapEntry, curry, has, isNil, map, mergeAll, not, path, pipe, prop, replace, split, toLower, toPairs} = require('ramda')
+let {__, always, and, apply, compose, cond, createMapEntry, curry,
+	has, isNil, map, mergeAll, not, path, pipe,
+	prop, replace, split, toLower, toPairs} = require('ramda')
 let validate  = curry(require('jsonschema').validate)
 let Registry = require('./registry')
 let notNil = compose(not, isNil)
