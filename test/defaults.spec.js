@@ -34,4 +34,17 @@ describe('morpheus', () => {
 		expect(actual)
 			.to.have.property('zip').equal('60075')
 	})
+
+	it('should not default value', () => {
+		let fromObj = {
+			name: 'Nach',
+			address: 'Palatine, IL',
+			zip: '60077'
+		}
+		morpheus.register({id: 'person', 'fromSchema': fromSchema, 'toSchema': toSchema})
+
+		let actual = morpheus.map('person', fromObj)
+		expect(actual)
+			.to.have.property('zip').equal('60077')
+	})
 })
