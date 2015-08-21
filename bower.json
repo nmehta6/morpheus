@@ -1,7 +1,7 @@
 {
   "name": "morpheus",
   "main": "dist/morpheus.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/nmehta6/morpheus",
   "authors": [
     "nachiket mehta <nmehta@mediafly.com>"

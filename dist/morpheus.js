@@ -2831,7 +2831,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _require = (typeof window !== "undefined" ? window['R'] : typeof global !== "undefined" ? global['R'] : null);
 
 var __ = _require.__;
+var always = _require.always;
+var and = _require.and;
+var apply = _require.apply;
 var compose = _require.compose;
+var cond = _require.cond;
 var createMapEntry = _require.createMapEntry;
 var curry = _require.curry;
 var has = _require.has;
