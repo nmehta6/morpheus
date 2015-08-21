@@ -75,6 +75,7 @@ let fromSchema = {
 Note: Examples are taken from unit tests located in `./test`
 
 #### Validation with [JSONSchema](http://json-schema.org/)
+Validation is enforced on both `fromObj` and `toObj` using the `fromSchema` and `toSchema`. If you are calling an external service and if the service changes the data model, you can get a validation error early. It also makes writing unit tests easier for the mapping logic.
 ```javascript
 let schema = {
 	type: 'number'
