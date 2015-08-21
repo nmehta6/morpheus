@@ -35,7 +35,11 @@ let morpheus = new Morpheus()
 
 ## Overview
 Morpheus uses JSONSchema to work with objects in a "typed" way. There is a two step process.
+
 1. Register: register all mappings (typically done when your app is bootstrapping). `fromSchema` and `toSchema` are JavaScript objects that comply with the [JSONSchema](http://json-schema.org/) spec.
+2. Use one of the registered mappings to transform.
+
+Register example:
 ```javascript
 let fromSchema = {
 	type: 'object',
@@ -45,31 +49,31 @@ let fromSchema = {
   }
 }
 
-	let toSchema = {
-		type: 'object',
-		properties: {
-			address: { type: 'string' }
-		}
+let toSchema = {
+	type: 'object',
+	properties: {
+		address: { type: 'string' }
 	}
-	let = morpheus = new Morpheus()
+}
+let = morpheus = new Morpheus()
 
-	morpheus.register({
-		id: 'neo',
-		fromSchema: fromSchema,
-		toSchema: toSchema
-	})
-	```
-2. Map: Use one of the registered mappings to transform.
+morpheus.register({
+	id: 'neo',
+	fromSchema: fromSchema,
+	toSchema: toSchema
+})
+```
 
-	```javascript
-	let fromObj = { name: 'Mr. Anderson', address: 'Capital City, USA' }
+Map example:
+```javascript
+let fromObj = { name: 'Mr. Anderson', address: 'Capital City, USA' }
 
-	let actual = morpheus.map('new', fromObj)
-	expect(actual)
-		.to.have.property('name').equal('Mr. Anderson')
-	let isValid = morpheus.validate(actual, toSchema)
-	expect(isValid.errors).to.have.length(0)
-	```
+let actual = morpheus.map('new', fromObj)
+expect(actual)
+	.to.have.property('name').equal('Mr. Anderson')
+let isValid = morpheus.validate(actual, toSchema)
+expect(isValid.errors).to.have.length(0)
+```
 
 ## Features
 Note: Examples are taken from unit tests located in `./test`
