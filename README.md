@@ -1,6 +1,8 @@
 # Morpheus
 A simple little library to validate and transform objects. It is inspired by the awesome .NET library [AutoMapper](automapper.org) but built for JavaScript.
 
+<i>Note: This is an experimental package. Please [file an issue](github.com/nmehta6/morpheus) if you find one.</i>
+
 [![Build Status](https://travis-ci.org/nmehta6/morpheus.svg)](https://travis-ci.org/nmehta6/morpheus)
 ![Dependency Status](https://david-dm.org/nmehta6/morpheus.svg)
 [![Coverage Status](https://coveralls.io/repos/nmehta6/morpheus/badge.svg?branch=master&service=github)](https://coveralls.io/github/nmehta6/morpheus?branch=master)
@@ -84,11 +86,122 @@ expect(actual.errors).to.have.length(0)
 ```
 
 #### Map Arrays
+Mapping arrays and transforming them
 ```javascript
-
+let fromSchema = {
+	type: 'array',
+	items: {
+		type: 'number'
+	}
+}
+let toSchema = {
+	type: 'array',
+	items: {
+		type: 'number'
+	},
+	morph: x => x.map(y => y * 2)
+}
+let fromArray = [1, 2, 3]
+let actual = morpheus.map('array', fromArray)
+//actual is now [2,4,6]
 ```
 
 #### Map objects
+Mapping objects with desired properties
+```javascript
+let fromSchema = {
+	type: 'object',
+	properties: {
+		name: { type: 'string' },
+		address: { type: 'string' },
+		zip: { type: 'string' }
+	}
+}
+let toSchema = {
+	type: 'object',
+	properties: {
+		name: { type: 'string' },
+		zip: { type: 'string' }
+	}
+}
+```
+
 #### Default values
+Default value for the `zip` property
+```javascript
+let fromSchema = {
+	type: 'object',
+	properties: {
+		name: { type: 'string' },
+		zip: {
+			type: ['string', 'null']
+		}
+	}
+}
+let toSchema = {
+	type: 'object',
+	properties: {
+		name: { type: 'string' },
+		zip: {
+			type: 'string',
+			'default': '60075'
+		}
+	}
+}
+```
 #### Flattening
+Flatten an object using the camelCase property naming convention for the `addressZip` property.
+```javascript
+let fromSchema = {
+	type: 'object',
+	properties: {
+		address: {
+			type: 'object',
+			properties: {
+				zip: {
+					type: ['string']
+				}
+			}
+		}
+	}
+}
+let toSchema = {
+	type: 'object',
+	properties: {
+		addressZip: {
+			type: 'string'
+		}
+	}
+}
+```
 #### Projection
+Project over properties of an object and create new properties
+```javascript
+let fromSchema = {
+	type: 'object',
+	properties: {
+		firstName: {
+			type: 'string'
+		},
+		lastName: {
+			type: 'string'
+		},
+		zip: {
+			type: 'number'
+		}
+	}
+}
+let toSchema = {
+	type: 'object',
+	properties: {
+		name: {
+			type: 'string',
+			morph: x => `${x.firstName} ${x.lastName}`
+		},
+		zip: {
+			type: 'string',
+			morph: x => x.zip.toString()
+		}
+	}
+}
+```

@@ -29,6 +29,8 @@ describe('morpheus', () => {
 		let actual = morpheus.map('person', fromObj)
 		expect(actual)
 			.to.have.property('name').equal('Nach')
+		expect(actual)
+			.not.to.have.property('address')
 		let isValid = morpheus.validate(actual, toSchema)
 		expect(isValid.errors).to.have.length(0)
 
