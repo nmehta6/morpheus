@@ -1,7 +1,7 @@
 # Morpheus
 A simple little library to validate and transform objects. It is inspired by the awesome .NET library [AutoMapper](automapper.org) but built for JavaScript.
 
-<i>Note: This is an experimental package. Please [file an issue](github.com/nmehta6/morpheus) if you find one.</i>
+<i>Note: This is an experimental package. Please [file an issue](https://github.com/nmehta6/morpheus/issues) if you find one.</i>
 
 [![Build Status](https://travis-ci.org/nmehta6/morpheus.svg)](https://travis-ci.org/nmehta6/morpheus)
 ![Dependency Status](https://david-dm.org/nmehta6/morpheus.svg)
