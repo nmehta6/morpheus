@@ -2,7 +2,7 @@
   "name": "@nmehta6/morpheus",
   "version": "0.0.3",
   "description": "A simple little library to transform data structures",
-  "main": "index.js",
+  "main": "lib/index.js",
   "browserify": {
     "transform": [
       "babelify",
@@ -17,6 +17,7 @@
     "babelify": "browserify src/morpheus.js --standalone Morpheus --outfile dist/morpheus.js",
     "build": "npm run lint; npm run compile; npm run babelify; npm run test",
     "lint": "jshint src test || true",
+    "prepublish": "npm run compile",
     "test": "mocha --compilers js:babel/register --check-leaks; karma start",
     "test-travis": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --compilers js:babel/register -R spec",
     "watch": "npm run build; chokidar src/**/*.js test/**/*.js -c 'npm run build' --polling --poll-interval 100 --verbose"

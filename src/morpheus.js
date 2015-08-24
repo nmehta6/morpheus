@@ -5,7 +5,7 @@ let validate  = curry(require('jsonschema').validate)
 let Registry = require('./registry')
 let notNil = compose(not, isNil)
 
-class Morpheus {
+export default class Morpheus {
 	constructor() {
 		this.registry = new Registry()
 		this.validate = validate(__, __, {throwError: true})
@@ -90,5 +90,3 @@ class Morpheus {
 		return result
 	}
 }
-
-module.exports = Morpheus
