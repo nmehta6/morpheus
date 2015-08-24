@@ -2,7 +2,7 @@
   "name": "@nmehta6/morpheus",
   "version": "0.0.4",
   "description": "A simple little library to transform data structures",
-  "main": "lib/index.js",
+  "main": "lib/morpheus.js",
   "browserify": {
     "transform": [
       "babelify",
