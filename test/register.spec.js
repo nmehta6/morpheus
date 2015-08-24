@@ -1,5 +1,5 @@
 let expect = require('chai').expect
-let Morpheus = require('../index')
+let Morpheus = require('../src/morpheus')
 let morpheus;
 let {find,
 	propEq} = require('ramda')

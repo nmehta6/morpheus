@@ -1,5 +1,5 @@
 let {expect} = require('chai')
-let Morpheus = require('../index')
+let Morpheus = require('../src/morpheus')
 let morpheus = new Morpheus()
 let fromSchema = {
 	type: 'array',
