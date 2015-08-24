@@ -1,2 +1,1 @@
-require('babel/register')
-module.exports = require('./src/morpheus')
+module.exports = require('./lib/morpheus')
