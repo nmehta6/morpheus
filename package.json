@@ -1,5 +1,5 @@
 {
-  "name": "@nmehta6/morpheus",
+  "name": "morpheusjs",
   "version": "0.0.5",
   "description": "A simple little library to transform data structures",
   "main": "lib/morpheus.js",
