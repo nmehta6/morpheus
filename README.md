@@ -25,7 +25,7 @@ bower install morpheus --save
 
 #### Using npm
 ```bash
-npm install @nmehta6/morpheusjs --save
+npm install morpheusjs --save
 ```
 #### In Node.js/io.js
 ```javascript
