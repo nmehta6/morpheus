@@ -7,8 +7,6 @@ A simple little library to validate and transform objects. It is inspired by the
 ![Dependency Status](https://david-dm.org/nmehta6/morpheus.svg)
 [![Coverage Status](https://coveralls.io/repos/nmehta6/morpheus/badge.svg?branch=master&service=github)](https://coveralls.io/github/nmehta6/morpheus?branch=master)
 
-![morpheus](http://www.pics4world.com/vb/imgcache/2/4494showing.jpg "morpheus")
-
 
 
 ## Installation
@@ -68,7 +66,7 @@ Map example:
 ```javascript
 let fromObj = { name: 'Mr. Anderson', address: 'Capital City, USA' }
 
-let actual = morpheus.map('new', fromObj)
+let actual = morpheus.map('neo', fromObj)
 expect(actual)
 	.to.have.property('name').equal('Mr. Anderson')
 let isValid = morpheus.validate(actual, toSchema)
